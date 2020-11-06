@@ -42,3 +42,6 @@ class Event(models.Model):
         "Country",
         max_length=3,
     )
+
+    def __str__(self):
+        return self.name
