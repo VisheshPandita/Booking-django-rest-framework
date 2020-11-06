@@ -1,7 +1,5 @@
 ### Booking backend infrastructure
 
-##stack:
-
-#Django
-
-#Djangorestframework
+stack:
+-Django
+-Djangorestframework
