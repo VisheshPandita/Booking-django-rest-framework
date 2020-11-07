@@ -10,13 +10,21 @@ class Event(models.Model):
         default=uuid.uuid4, 
         editable=False
     )
-    host = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    host = models.ForeignKey(
+        Profile,
+        related_name="host",
+        on_delete=models.CASCADE
+    )
     name = models.CharField(
         verbose_name='Event Name',
         max_length=200
     )
     seats = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
+    audience = models.ManyToManyField(
+        Profile,
+        related_name="audience"
+    )
     discription = models.TextField(
         verbose_name='About the event',
         null=True,

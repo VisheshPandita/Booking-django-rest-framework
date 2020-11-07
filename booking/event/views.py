@@ -57,3 +57,23 @@ class PostEvent(APIView):
             return Response(event.data, status=status.HTTP_201_CREATED)
         else:
             return Response(instance.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BookForEvent(APIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_event(self, id):
+        try:
+            instance = Event.objects.get(id=id)
+            return instance
+        except ValueError:
+            return Response(status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, slug):
+        instance = self.get_event(slug)
+        instance.audience.add(request.user)
+        data = {}
+        data['response'] = 'You are added to the show'
+        return Response(data, status=status.HTTP_200_OK)
