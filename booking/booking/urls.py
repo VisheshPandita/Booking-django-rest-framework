@@ -6,6 +6,6 @@ from user import urls as usersURL
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('movie/', include(eventURL)),
+    path('event/', include(eventURL)),
     path('user/', include(usersURL)),
 ]

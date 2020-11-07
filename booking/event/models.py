@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from user.models import Profile
 
 
 class Event(models.Model):
@@ -9,6 +10,7 @@ class Event(models.Model):
         default=uuid.uuid4, 
         editable=False
     )
+    host = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(
         verbose_name='Event Name',
         max_length=200
@@ -29,6 +31,8 @@ class Event(models.Model):
     address2 = models.CharField(
         "Address line 2",
         max_length=1024,
+        null=True,
+        blank=True
     )
     zip_code = models.CharField(
         "ZIP / Postal code",
