@@ -73,7 +73,10 @@ class BookForEvent(APIView):
 
     def post(self, request, slug):
         instance = self.get_event(slug)
-        instance.audience.add(request.user)
         data = {}
-        data['response'] = 'You are added to the show'
+        if instance.audience.count < instance.seats:
+            instance.audience.add(request.user)
+            data['response'] = 'You are added to the show'
+        else:
+            data['response'] = 'Housefull'
         return Response(data, status=status.HTTP_200_OK)
